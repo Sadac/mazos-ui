@@ -11,6 +11,9 @@ const Nav = () => {
           Usuarios
         </a>
        
+       <a className="navbar-brand" href="/mazos">
+         Mazos
+       </a>
       </nav>
     </Fragment>
   );

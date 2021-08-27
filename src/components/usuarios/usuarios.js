@@ -27,19 +27,20 @@ const Usuarios = () => {
     getUsers();
     setRefresh(false);
   }, [refresh]);
+
   const handleChange = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (nombre.trim() === "" || apellido.trim() === "" || email.trim() === "") {
       setError(true);
       return;
     }
-
     await fetch("http://localhost:4000/api/usuario", {
       method: "POST",
       headers: {
@@ -57,15 +58,12 @@ const Usuarios = () => {
       email: "",
     });
   };
+
   return (
     <Fragment>
       <Nav />
       <div className="mt-3">
-        <div className="row">
-          <div className="col-md-11">
             <h1>Usuarios</h1>
-          </div>
-        </div>
         <div className="col-md-1"></div>
 
         <table className="mt-3 table table-striped">
