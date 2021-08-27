@@ -1,15 +1,13 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Nav from "../nav";
 import Usuario from "./usuario";
-// import userContext from "../../context/userContext";
 
 const Usuarios = () => {
   const [usuario, setUsuario] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const [modal, setModal] = useState(false);
   const [error, setError] = useState(false);
-  // const usuarioContext = useContext(userContext);
-  // const { usuario, setUsuario } = usuarioContext;
   const [user, setUser] = useState({
     nombre: "",
     apellido: "",
@@ -61,6 +59,7 @@ const Usuarios = () => {
   };
   return (
     <Fragment>
+      <Nav />
       <div className="mt-3">
         <div className="row">
           <div className="col-md-11">

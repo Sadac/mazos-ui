@@ -6,14 +6,19 @@ const EditarUsuario = (props) => {
   const {state:user} = props.location;
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
+  const [error,setError] = useState(false);
 
   let editado = {
     nombre,
     apellido
   }
   const handleSubmit = async (e) => {
-    console.log(editado)
     e.preventDefault();
+    if(!nombre && !apellido){
+      setError(true);
+      return;
+    }
+    setError(false)
     let datas = {};
     if (editado.nombre) {
       datas.nombre = editado.nombre;
@@ -60,9 +65,8 @@ const EditarUsuario = (props) => {
               name={apellido}
               onChange={(e) => setApellido(e.target.value)}
               placeholder={`Apellido: ${user.apellido}`}
-
             />
-            
+            {error ? <p className="p-2 mt-2 bg-danger rounded text-light"><b>Debes actualizar al menos un campo</b></p> : null}
             <br /> <br /> <br />
             <button type="submit" className="btn btn-success btn-block m-3">
               Editar
@@ -74,7 +78,7 @@ const EditarUsuario = (props) => {
             >
               Cancelar
             </button>
-            {redirect ? <Redirect to="/" /> : null}
+            {redirect ? <Redirect to="/usuarios" /> : null}
           </form>
         </div>
       </div>

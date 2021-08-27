@@ -1,11 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Redirect } from "react-router-dom";
-// import userContext from "../../context/userContext";
 
 const Usuario = ({ user, setRefresh }) => {
-   //  const usuarioContext = useContext(userContext);
-  // const { usuario, setUsuario } = usuarioContext;
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
 
@@ -22,7 +19,6 @@ const Usuario = ({ user, setRefresh }) => {
 
   const handleEdit = () => {
     setEdit(true);
-   // setUsuario(participant);
   };
   return (
     <Fragment>
