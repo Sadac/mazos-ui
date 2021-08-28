@@ -41,14 +41,18 @@ const Usuarios = () => {
       setError(true);
       return;
     }
-    await fetch("http://localhost:4000/api/usuario", {
+    const response = await fetch("http://localhost:4000/api/usuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
-
+    const respuesta = await response.json();
+    if (respuesta.message === "El usuario ya existe, intenta con otro email") {
+      alert(`El usuario con el mail ${email} ya existe, intenta con otro. `);
+      return;
+    }
     setError(false);
     setModal(false);
     setRefresh(true);
@@ -63,7 +67,7 @@ const Usuarios = () => {
     <Fragment>
       <Nav />
       <div className="mt-3">
-            <h1>Usuarios</h1>
+        <h1>Usuarios</h1>
         <div className="col-md-1"></div>
 
         <table className="mt-3 table table-striped">

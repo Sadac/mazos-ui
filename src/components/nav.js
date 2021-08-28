@@ -10,10 +10,16 @@ const Nav = () => {
         <a className="navbar-brand" href="/usuarios">
           Usuarios
         </a>
-       
-       <a className="navbar-brand" href="/mazos">
-         Mazos
-       </a>
+
+        <a className="navbar-brand" href="/mazos">
+          Mazos
+        </a>
+        <a className="navbar-brand" href="/tarjetas">
+          Tarjetas
+        </a>
+        <a className="navbar-brand" href="/medallas">
+          Medallas
+        </a>
       </nav>
     </Fragment>
   );
