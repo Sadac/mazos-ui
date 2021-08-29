@@ -40,6 +40,7 @@ const EditarTarjeta = (props) => {
       }
     );
     await data.json();
+    alert("Tarjeta actualizada exitosamente.");
     setRedirect(true);
   };
   const cancel = () => {

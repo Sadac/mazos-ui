@@ -52,7 +52,6 @@ const Tarjetas = () => {
       body: JSON.stringify(tarjeta),
     });
     const respuesta = await response.json();
-    console.log(respuesta);
     if (respuesta.message) {
       if (respuesta.message === "El mazo no existe") {
         alert(respuesta.message);

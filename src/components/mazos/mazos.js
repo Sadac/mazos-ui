@@ -21,7 +21,6 @@ const Mazos = () => {
         method: "GET",
       });
       const mazo = await response.json();
-      console.log(response);
       setMazos(mazo);
     };
     getMazos();

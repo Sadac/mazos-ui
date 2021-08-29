@@ -33,8 +33,8 @@ const EditarUsuario = (props) => {
       },
       body: JSON.stringify(datas),
     });
-    const respuesta = await data.json();
-    console.log(respuesta);
+    await data.json();
+    alert("Usuario actualizado exitosamente.");
     setRedirect(true);
   };
 

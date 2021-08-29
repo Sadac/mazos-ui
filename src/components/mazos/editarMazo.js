@@ -37,6 +37,7 @@ const EditarMazo = (props) => {
       body: JSON.stringify(datas),
     });
     await data.json();
+    alert("Mazo actualizado exitosamente.");
     setRedirect(true);
   };
   const cancel = () => {
