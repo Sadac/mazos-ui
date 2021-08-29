@@ -33,7 +33,7 @@ const Tarjeta = ({ setRefresh, tarjeta }) => {
           </span>
         </td>
         <td>
-          <b> {tarjeta.mazoId}</b>
+          <b> {tarjeta.Mazo}</b>
         </td>
         <td className="acciones">
           <button

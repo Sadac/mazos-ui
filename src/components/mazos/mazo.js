@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Redirect } from "react-router-dom";
 
-const Mazo = ({mazo, setRefresh}) => {
+const Mazo = ({ mazo, setRefresh }) => {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
 
@@ -21,11 +21,9 @@ const Mazo = ({mazo, setRefresh}) => {
     setEdit(true);
   };
 
-
-
-  return(
+  return (
     <Fragment>
-     <tr>
+      <tr>
         <td className="text-capitalize">
           <b> {mazo.nombre} </b>
         </td>
@@ -35,7 +33,7 @@ const Mazo = ({mazo, setRefresh}) => {
           </span>
         </td>
         <td>
-          <b> {mazo.usuarioId} </b>
+          <b> {mazo.usuario} </b>
         </td>
         <td className="acciones">
           <button
@@ -47,14 +45,12 @@ const Mazo = ({mazo, setRefresh}) => {
           <button
             type="button"
             className="btn btn-outline-danger font-weight-bold "
-           onClick={() => handleDelete()}
+            onClick={() => handleDelete()}
           >
             Eliminar
           </button>
         </td>
-      </tr> 
-
-
+      </tr>
 
       <Modal isOpen={del}>
         <ModalHeader>Confirmacion</ModalHeader>
@@ -82,12 +78,9 @@ const Mazo = ({mazo, setRefresh}) => {
           </button>
         </ModalFooter>
       </Modal>
-      {edit ? (
-        <Redirect to={{ pathname: "/editarmazo", state: mazo }} />
-      ) : null}
-
+      {edit ? <Redirect to={{ pathname: "/editarmazo", state: mazo }} /> : null}
     </Fragment>
   );
-}
+};
 
 export default Mazo;

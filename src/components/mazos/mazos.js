@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Mazo from "./mazo";
 import Nav from "../nav";
@@ -21,6 +21,7 @@ const Mazos = () => {
         method: "GET",
       });
       const mazo = await response.json();
+      console.log(response);
       setMazos(mazo);
     };
     getMazos();
@@ -64,7 +65,6 @@ const Mazos = () => {
         return;
       }
     }
-    console.log(respuesta);
     setError(false);
     setModal(false);
     setRefresh(true);
@@ -74,7 +74,6 @@ const Mazos = () => {
       email: "",
     });
   };
-
   return (
     <Fragment>
       <Nav />

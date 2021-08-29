@@ -1,24 +1,24 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Redirect } from "react-router-dom";
 
 const EditarUsuario = (props) => {
   const [redirect, setRedirect] = useState(false);
-  const {state:user} = props.location;
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [error,setError] = useState(false);
+  const { state: user } = props.location;
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [error, setError] = useState(false);
 
   let editado = {
     nombre,
-    apellido
-  }
+    apellido,
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!nombre && !apellido){
+    if (!nombre && !apellido) {
       setError(true);
       return;
     }
-    setError(false)
+    setError(false);
     let datas = {};
     if (editado.nombre) {
       datas.nombre = editado.nombre;
@@ -26,22 +26,18 @@ const EditarUsuario = (props) => {
     if (editado.apellido) {
       datas.apellido = editado.apellido;
     }
-    
-    const data = await fetch(
-      `http://localhost:4000/api/usuario/${user.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datas),
-      }
-    );
-    await data.json();
+    const data = await fetch(`http://localhost:4000/api/usuario/${user.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datas),
+    });
+    const respuesta = await data.json();
+    console.log(respuesta);
     setRedirect(true);
   };
 
-  
   const cancel = () => {
     setRedirect(true);
   };
@@ -66,7 +62,11 @@ const EditarUsuario = (props) => {
               onChange={(e) => setApellido(e.target.value)}
               placeholder={`Apellido: ${user.apellido}`}
             />
-            {error ? <p className="p-2 mt-2 bg-danger rounded text-light"><b>Debes actualizar al menos un campo</b></p> : null}
+            {error ? (
+              <p className="p-2 mt-2 bg-danger rounded text-light">
+                <b>Debes actualizar al menos un campo</b>
+              </p>
+            ) : null}
             <br /> <br /> <br />
             <button type="submit" className="btn btn-success btn-block m-3">
               Editar
@@ -84,7 +84,6 @@ const EditarUsuario = (props) => {
       </div>
     </Fragment>
   );
-
-}
+};
 
 export default EditarUsuario;

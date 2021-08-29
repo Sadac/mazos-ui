@@ -6,6 +6,13 @@ import Tarjeta from "./tarjeta";
 const Tarjetas = () => {
   const [refresh, setRefresh] = useState(true);
   const [tarjetas, setTarjetas] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState(false);
+  const [tarjeta, setTarjeta] = useState({
+    titulo: "",
+    contenido: "",
+    mazo: "",
+  });
 
   useEffect(() => {
     const getTarjetas = async () => {
@@ -19,6 +26,54 @@ const Tarjetas = () => {
     getTarjetas();
     setRefresh(false);
   }, [refresh]);
+
+  const handleChange = (e) => {
+    setTarjeta({
+      ...tarjeta,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      tarjeta.titulo.trim() === "" ||
+      tarjeta.contenido.trim() === "" ||
+      tarjeta.mazo.trim() === ""
+    ) {
+      setError(true);
+      return;
+    }
+    const response = await fetch("http://localhost:4000/api/tarjeta", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tarjeta),
+    });
+    const respuesta = await response.json();
+    console.log(respuesta);
+    if (respuesta.message) {
+      if (respuesta.message === "El mazo no existe") {
+        alert(respuesta.message);
+        return;
+      }
+      if (
+        respuesta.message === "La tarjeta ya existe, intenta con otro titulo"
+      ) {
+        alert(respuesta.message);
+        return;
+      }
+    }
+    setError(false);
+    setModal(false);
+    setRefresh(true);
+    setTarjeta({
+      titulo: "",
+      descrpcion: "",
+      email: "",
+    });
+  };
 
   return (
     <Fragment>
@@ -51,7 +106,7 @@ const Tarjetas = () => {
         <div className="derecha">
           <button
             type="button"
-            //onClick={() => setModal(true)}
+            onClick={() => setModal(true)}
             className="btn btn-success w-25"
           >
             Agregar Tarjeta
@@ -59,9 +114,9 @@ const Tarjetas = () => {
         </div>
       </div>
 
-      {/* <Modal isOpen={modal}>
+      <Modal isOpen={modal}>
         <ModalHeader>
-          <h4>Crea un Mazo</h4>
+          <h4>Crea una Tarjeta</h4>
         </ModalHeader>
         <ModalBody>
           <form>
@@ -73,22 +128,22 @@ const Tarjetas = () => {
             <input
               type="text"
               className="form-control"
-              placeholder="Nombre del mazo..."
-              name="nombre"
+              placeholder="Titulo de la tarjeta..."
+              name="titulo"
               onChange={handleChange}
             />
             <input
               type="text"
               className="form-control mt-2"
-              placeholder="Descripcion del mazo..."
-              name="descripcion"
+              placeholder="Contenido de la tarjeta..."
+              name="contenido"
               onChange={handleChange}
             />
             <input
-              type="email"
+              type="text"
               className="form-control mt-2"
-              placeholder="Email del usuario al cual pertenece este mazo..."
-              name="email"
+              placeholder="nombre del mazo al cual pertenece la tarjeta..."
+              name="mazo"
               onChange={handleChange}
             />
           </form>
@@ -111,7 +166,7 @@ const Tarjetas = () => {
             Cancelar
           </button>
         </ModalFooter>
-      </Modal> */}
+      </Modal>
     </Fragment>
   );
 };
