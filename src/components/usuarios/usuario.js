@@ -14,8 +14,8 @@ const Usuario = ({ user, setRefresh }) => {
     setDel(true);
   };
 
-  const deleteAssistant = async (id) => {
-    await fetch(`http://localhost:4000/api/usuario/${id}`, {
+  const deleteUsuario = async (id) => {
+    await fetch(`http://localhost:4000/api/usuario/delete/${id}`, {
       method: "DELETE",
     });
     setRefresh(true);
@@ -82,7 +82,7 @@ const Usuario = ({ user, setRefresh }) => {
         <ModalFooter>
           <button
             onClick={() => {
-              deleteAssistant(user.id);
+              deleteUsuario(user.id);
               setDel(false);
             }}
             className="btn btn-danger btn-block"
