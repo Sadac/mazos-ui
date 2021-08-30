@@ -61,7 +61,13 @@ const Usuario = ({ user, setRefresh }) => {
           >
             Eliminar
           </button>
-          <button onClick={() => handleDetalle(user.id)} type="button" className="btn btn-outline-info">Detalle</button>
+          <button
+           onClick={() => handleDetalle(user.id)}
+           type="button"
+           className="btn btn-outline-info"
+           >
+            Detalle
+           </button>
         </td>
       </tr>
 
@@ -94,7 +100,8 @@ const Usuario = ({ user, setRefresh }) => {
 
       <Modal isOpen={detalle}>
         <ModalHeader>
-          <h4>Informacion del Usuario</h4>
+          <h2>Información del Usuario</h2>
+          <i className="h6">Nota: Si ' Mazos ' o ' Medallas' esta vacío es porque el usuario no tiene mazos o medallas.</i>
         </ModalHeader>
         <ModalBody>
           <ul>
