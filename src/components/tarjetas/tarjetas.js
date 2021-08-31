@@ -90,7 +90,7 @@ const Tarjetas = () => {
           </thead>
           <tbody>
             {!tarjetas.length ? (
-              <h4 className="mt-5">Cargando...</h4>
+              <h4 className="mt-5">No hay tarjetas.</h4>
             ) : (
               tarjetas.map((tarjeta) => (
                 <Tarjeta

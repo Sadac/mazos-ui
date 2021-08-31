@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 const Usuario = ({ user, setRefresh }) => {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
-  const [detalle, setDetalle] = useState(false)
+  const [detalle, setDetalle] = useState(false);
   const [userDetail, setUserDetail] = useState([]);
   const mazos = userDetail.Mazos ? userDetail.Mazos : null;
   const medallas = userDetail.medallas ? userDetail.medallas : null;
@@ -32,7 +32,7 @@ const Usuario = ({ user, setRefresh }) => {
     });
     const respuesta = await response.json();
     setUserDetail(respuesta[0]);
-  }
+  };
   return (
     <Fragment>
       <tr>
@@ -48,10 +48,7 @@ const Usuario = ({ user, setRefresh }) => {
           <b> {user.email} </b>
         </td>
         <td className="acciones">
-          <button
-            onClick={handleEdit}
-            className="btn btn-outline-secondary"
-          >
+          <button onClick={handleEdit} className="btn btn-outline-secondary">
             Editar
           </button>
           <button
@@ -62,12 +59,12 @@ const Usuario = ({ user, setRefresh }) => {
             Eliminar
           </button>
           <button
-           onClick={() => handleDetalle(user.id)}
-           type="button"
-           className="btn btn-outline-info"
-           >
+            onClick={() => handleDetalle(user.id)}
+            type="button"
+            className="btn btn-outline-info"
+          >
             Detalle
-           </button>
+          </button>
         </td>
       </tr>
 
@@ -101,7 +98,10 @@ const Usuario = ({ user, setRefresh }) => {
       <Modal isOpen={detalle}>
         <ModalHeader>
           <h2>Información del Usuario</h2>
-          <i className="h6">Nota: Si ' Mazos ' o ' Medallas' esta vacío es porque el usuario no tiene mazos o medallas.</i>
+          <i className="h6">
+            Nota: Si ' Mazos ' o ' Medallas' esta vacío es porque el usuario no
+            tiene mazos o medallas.
+          </i>
         </ModalHeader>
         <ModalBody>
           <ul>
@@ -118,11 +118,19 @@ const Usuario = ({ user, setRefresh }) => {
             </li>
             <li className="text-capitalize">
               <b>Mis mazos: </b>
-              <i>{userDetail.Mazos ? mazos.map(mazo => ` ${mazo.nombre}, `):'Cargando mazos...'} </i>
+              <i>
+                {userDetail.Mazos
+                  ? mazos.map((mazo) => ` ${mazo.nombre}, `)
+                  : "Cargando mazos..."}
+              </i>
             </li>
             <li className="text-capitalize">
               <b>Mis medallas: </b>
-              <i>{userDetail.medallas ? medallas.map(medalla => ` ${medalla[0].nombre}, `) :'Cargando medallas...'} </i>
+              <i>
+                {userDetail.medallas
+                  ? medallas.map((medalla) => ` ${medalla[0].nombre}, `)
+                  : "Cargando medallas..."}
+              </i>
             </li>
           </ul>
         </ModalBody>
@@ -136,7 +144,6 @@ const Usuario = ({ user, setRefresh }) => {
           </button>
         </ModalFooter>
       </Modal>
-
 
       {edit ? (
         <Redirect to={{ pathname: "/editarusuario", state: user }} />

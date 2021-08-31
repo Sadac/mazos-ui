@@ -6,9 +6,12 @@ const Medalla = ({ setRefresh, medalla }) => {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
+  const [email, setEmail] = useState("");
+  const [deleted, setDeleted] = useState(false);
+  const [emailDelete, setEmailDelete] = useState("");
 
   const deleteMedalla = async (id) => {
-      await fetch(`http://localhost:4000/api/medalla/${id}`, {
+    await fetch(`http://localhost:4000/api/medalla/${id}`, {
       method: "DELETE",
     });
     setRefresh(true);
@@ -23,20 +26,91 @@ const Medalla = ({ setRefresh, medalla }) => {
   };
 
   const AgregarMedallaUsuario = () => {
-setAdd(true);
-  }
+    setAdd(true);
+  };
+  const EliminarMedallaUsuario = () => {
+    setDeleted(true);
+  };
 
   const crearMedalla = async () => {
-    await fetch('http://localhost:4000/api/usuario/add',{
+    const data = {
+      nombre: medalla.nombre,
+      email,
+    };
+
+    if (!data.email) {
+      alert("Debe colocar un Email");
+      return;
+    }
+    const response = await fetch("http://localhost:4000/api/usuario/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-    //  body: JSON.stringify(medallaAgregar),
-    })
+      body: JSON.stringify(data),
+    });
+    const respuesta = await response.json();
+    if (respuesta.message) {
+      if (
+        respuesta.message == "La medalla no existe, intenta con otro nombre"
+      ) {
+        alert(respuesta.message);
+        return;
+      }
+      if (respuesta.message === "El usuario no existe") {
+        alert(respuesta.message);
+        return;
+      }
+      if (respuesta.message === "El usuario ya tiene ganada esta medalla.") {
+        alert(respuesta.message);
+        return;
+      }
+    }
+    setEmail("");
     alert("Medalla agregada al usuario exitosamente");
     setAdd(false);
-  }
+  };
+
+  const eliminarMedalla = async () => {
+    const dataDelete = {
+      email: emailDelete,
+      medallaId: medalla.id,
+    };
+
+    if (!dataDelete.email) {
+      alert("Debe colocar un email");
+      return;
+    }
+    console.log(dataDelete);
+    const response = await fetch("http://localhost:4000/api/usuario/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataDelete),
+    });
+    const respuesta = await response.json();
+    console.log(respuesta);
+    if (respuesta.message === "Usuario no existe.") {
+      alert(respuesta.message);
+      return;
+    }
+    if (
+      respuesta.message ===
+      "No se puede eliminar porque el usuario no tiene la medalla ganada."
+    ) {
+      alert(respuesta.message);
+      return;
+    }
+    if (
+      respuesta.message === "El usuario ha perdido la medalla exitosamente."
+    ) {
+      alert(respuesta.message);
+    }
+    setEmailDelete("");
+    setDeleted(false);
+  };
+
   return (
     <Fragment>
       <tr>
@@ -65,12 +139,20 @@ setAdd(true);
           >
             Eliminar
           </button>
-          <button 
-          className="btn btn-primary m-1"
-          type="button"
-          onClick={() => AgregarMedallaUsuario()}
-          >+</button>
-          <button className="btn btn-danger">-</button>
+          <button
+            className="btn btn-primary m-1"
+            type="button"
+            onClick={() => AgregarMedallaUsuario()}
+          >
+            +
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => EliminarMedallaUsuario()}
+          >
+            -
+          </button>
         </td>
       </tr>
 
@@ -101,7 +183,6 @@ setAdd(true);
         </ModalFooter>
       </Modal>
 
-
       <Modal isOpen={add}>
         <ModalHeader>
           <h2>Agregar medalla a un Usuario</h2>
@@ -109,19 +190,16 @@ setAdd(true);
         <ModalBody>
           <form>
             <input
-            type="text"
-            placeholder="nombre de la medalla..."
-            className="form-control"
-            />
-            <input
-            className="form-control mt-2"
-            placeholder="email del usuario..."
-            type="email"
+              className="form-control mt-2"
+              placeholder="email del usuario..."
+              type="email"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </form>
         </ModalBody>
         <ModalFooter>
-        <button
+          <button
             className="btn btn-success btn-block"
             type="button"
             onClick={crearMedalla}
@@ -140,7 +218,40 @@ setAdd(true);
         </ModalFooter>
       </Modal>
 
-
+      <Modal isOpen={deleted}>
+        <ModalHeader>
+          <h2>Eliminar medalla a un Usuario</h2>
+        </ModalHeader>
+        <ModalBody>
+          <form>
+            <input
+              className="form-control mt-2"
+              placeholder="email del usuario..."
+              type="email"
+              name="email"
+              onChange={(e) => setEmailDelete(e.target.value)}
+            />
+          </form>
+        </ModalBody>
+        <ModalFooter>
+          <button
+            className="btn btn-danger btn-block"
+            type="button"
+            onClick={eliminarMedalla}
+          >
+            Eliminar
+          </button>
+          <button
+            onClick={() => {
+              setDeleted(false);
+            }}
+            className="btn btn-block btn-success"
+            type="button"
+          >
+            Cancelar
+          </button>
+        </ModalFooter>
+      </Modal>
 
       {edit ? (
         <Redirect to={{ pathname: "/editarmedalla", state: medalla }} />

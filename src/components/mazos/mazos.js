@@ -89,7 +89,7 @@ const Mazos = () => {
           </thead>
           <tbody>
             {!mazos.length ? (
-              <h4 className="mt-5">Cargando...</h4>
+              <h4 className="mt-5">No hay mazos.</h4>
             ) : (
               mazos.map((mazo) => (
                 <Mazo setRefresh={setRefresh} mazo={mazo} key={mazo.id} />

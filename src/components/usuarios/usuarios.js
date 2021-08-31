@@ -81,7 +81,7 @@ const Usuarios = () => {
           </thead>
           <tbody>
             {!usuario.length ? (
-              <h4 className="mt-5">Cargando...</h4>
+              <h4 className="mt-5">No hay usuarios.</h4>
             ) : (
               usuario.map((user) => (
                 <Usuario setRefresh={setRefresh} user={user} key={user.id} />

@@ -87,7 +87,7 @@ const Medallas = () => {
           </thead>
           <tbody>
             {!medallas.length ? (
-              <h4 className="mt-5">Cargando...</h4>
+              <h4 className="mt-5">No hay medallas.</h4>
             ) : (
               medallas.map((medalla) => (
                 <Medalla
