@@ -30,7 +30,7 @@ const EditarTarjeta = (props) => {
     }
 
     const data = await fetch(
-      `http://localhost:4000/api/tarjeta/${tarjeta.id}`,
+      `https://mazos-api.herokuapp.com/api/tarjeta/${tarjeta.id}`,
       {
         method: "PATCH",
         headers: {

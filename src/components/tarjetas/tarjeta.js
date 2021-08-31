@@ -7,7 +7,7 @@ const Tarjeta = ({ setRefresh, tarjeta }) => {
   const [del, setDel] = useState(false);
 
   const deleteTarjeta = async (id) => {
-    await fetch(`http://localhost:4000/api/tarjeta/${id}`, {
+    await fetch(`https://mazos-api.herokuapp.com/api/tarjeta/${id}`, {
       method: "DELETE",
     });
     setRefresh(true);

@@ -16,7 +16,7 @@ const Tarjetas = () => {
 
   useEffect(() => {
     const getTarjetas = async () => {
-      const url = "http://localhost:4000/api/tarjeta";
+      const url = "https://mazos-api.herokuapp.com/api/tarjeta";
       const response = await fetch(url, {
         method: "GET",
       });
@@ -44,13 +44,16 @@ const Tarjetas = () => {
       setError(true);
       return;
     }
-    const response = await fetch("http://localhost:4000/api/tarjeta", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(tarjeta),
-    });
+    const response = await fetch(
+      "https://mazos-api.herokuapp.com/api/tarjeta",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tarjeta),
+      }
+    );
     const respuesta = await response.json();
     if (respuesta.message) {
       if (respuesta.message === "El mazo no existe") {

@@ -16,7 +16,7 @@ const Mazos = () => {
 
   useEffect(() => {
     const getMazos = async () => {
-      const url = "http://localhost:4000/api/mazo";
+      const url = "https://mazos-api.herokuapp.com/api/mazo";
       const response = await fetch(url, {
         method: "GET",
       });
@@ -44,7 +44,7 @@ const Mazos = () => {
       setError(true);
       return;
     }
-    const response = await fetch("http://localhost:4000/api/mazo", {
+    const response = await fetch("https://mazos-api.herokuapp.com/api/mazo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

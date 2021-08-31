@@ -5,12 +5,12 @@ import { Redirect } from "react-router-dom";
 const Mazo = ({ mazo, setRefresh }) => {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
-  const [detalle, setDetalle] = useState(false)
+  const [detalle, setDetalle] = useState(false);
   const [mazoDetail, setMazoDetail] = useState([]);
   const tarjetas = mazoDetail.Tarjetas ? mazoDetail.Tarjetas : null;
 
   const deleteMazo = async (id) => {
-    await fetch(`http://localhost:4000/api/mazo/${id}`, {
+    await fetch(`https://mazos-api.herokuapp.com/api/mazo/${id}`, {
       method: "DELETE",
     });
     setRefresh(true);
@@ -26,12 +26,15 @@ const Mazo = ({ mazo, setRefresh }) => {
 
   const handleDetalle = async (id) => {
     setDetalle(true);
-    const response = await fetch(`http://localhost:4000/api/mazo/${id}`, {
-      method: "GET",
-    });
+    const response = await fetch(
+      `https://mazos-api.herokuapp.com/api/mazo/${id}`,
+      {
+        method: "GET",
+      }
+    );
     const respuesta = await response.json();
     setMazoDetail(respuesta[0]);
-  }
+  };
 
   return (
     <Fragment>
@@ -48,10 +51,7 @@ const Mazo = ({ mazo, setRefresh }) => {
           <b> {mazo.usuario} </b>
         </td>
         <td className="acciones">
-          <button
-            onClick={handleEdit}
-            className="btn btn-outline-secondary"
-          >
+          <button onClick={handleEdit} className="btn btn-outline-secondary">
             Editar
           </button>
           <button
@@ -62,13 +62,12 @@ const Mazo = ({ mazo, setRefresh }) => {
             Eliminar
           </button>
           <button
-          onClick={() => handleDetalle(mazo.id)}
-          type="button"
-          className="btn btn-outline-info"
+            onClick={() => handleDetalle(mazo.id)}
+            type="button"
+            className="btn btn-outline-info"
           >
             Detalle
-            </button>
-
+          </button>
         </td>
       </tr>
 
@@ -102,7 +101,10 @@ const Mazo = ({ mazo, setRefresh }) => {
       <Modal isOpen={detalle}>
         <ModalHeader>
           <h2>Información del Mazo</h2>
-          <i className="h6">Nota: Si ' Tarjetas ' esta vacío es porque ese mazo no tiene tarjetas asignadas.</i>
+          <i className="h6">
+            Nota: Si ' Tarjetas ' esta vacío es porque ese mazo no tiene
+            tarjetas asignadas.
+          </i>
         </ModalHeader>
         <ModalBody>
           <ul>
@@ -120,7 +122,9 @@ const Mazo = ({ mazo, setRefresh }) => {
             <li>
               <b>Tarjetas:</b>
               <i className="text-capitalize">
-                {mazoDetail.Tarjetas ? tarjetas.map( tarjeta => ` ${tarjeta.titulo}, `) : ' Cargando...'}
+                {mazoDetail.Tarjetas
+                  ? tarjetas.map((tarjeta) => ` ${tarjeta.titulo}, `)
+                  : " Cargando..."}
               </i>
             </li>
           </ul>
@@ -135,7 +139,6 @@ const Mazo = ({ mazo, setRefresh }) => {
           </button>
         </ModalFooter>
       </Modal>
-
 
       {edit ? <Redirect to={{ pathname: "/editarmazo", state: mazo }} /> : null}
     </Fragment>

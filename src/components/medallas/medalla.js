@@ -11,7 +11,7 @@ const Medalla = ({ setRefresh, medalla }) => {
   const [emailDelete, setEmailDelete] = useState("");
 
   const deleteMedalla = async (id) => {
-    await fetch(`http://localhost:4000/api/medalla/${id}`, {
+    await fetch(`https://mazos-api.herokuapp.com/api/medalla/${id}`, {
       method: "DELETE",
     });
     setRefresh(true);
@@ -42,13 +42,16 @@ const Medalla = ({ setRefresh, medalla }) => {
       alert("Debe colocar un Email");
       return;
     }
-    const response = await fetch("http://localhost:4000/api/usuario/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      "https://mazos-api.herokuapp.com/api/usuario/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const respuesta = await response.json();
     if (respuesta.message) {
       if (
@@ -82,13 +85,16 @@ const Medalla = ({ setRefresh, medalla }) => {
       return;
     }
     console.log(dataDelete);
-    const response = await fetch("http://localhost:4000/api/usuario/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataDelete),
-    });
+    const response = await fetch(
+      "https://mazos-api.herokuapp.com/api/usuario/delete",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataDelete),
+      }
+    );
     const respuesta = await response.json();
     console.log(respuesta);
     if (respuesta.message === "Usuario no existe.") {

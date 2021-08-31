@@ -15,7 +15,7 @@ const Medallas = () => {
   });
   useEffect(() => {
     const getMedallas = async () => {
-      const url = "http://localhost:4000/api/medalla";
+      const url = "https://mazos-api.herokuapp.com/api/medalla";
       const response = await fetch(url, {
         method: "GET",
       });
@@ -45,13 +45,16 @@ const Medallas = () => {
     }
     setError(false);
 
-    const response = await fetch("http://localhost:4000/api/medalla", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(medalla),
-    });
+    const response = await fetch(
+      "https://mazos-api.herokuapp.com/api/medalla",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(medalla),
+      }
+    );
     const respuesta = await response.json();
     if (respuesta.message) {
       if (

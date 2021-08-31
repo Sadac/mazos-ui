@@ -17,7 +17,7 @@ const Usuarios = () => {
 
   useEffect(() => {
     const getUsers = async () => {
-      const url = "http://localhost:4000/api/usuario";
+      const url = "https://mazos-api.herokuapp.com/api/usuario";
       const response = await fetch(url, {
         method: "GET",
       });
@@ -41,13 +41,16 @@ const Usuarios = () => {
       setError(true);
       return;
     }
-    const response = await fetch("http://localhost:4000/api/usuario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    const response = await fetch(
+      "https://mazos-api.herokuapp.com/api/usuario",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    );
     const respuesta = await response.json();
     if (respuesta.message === "El usuario ya existe, intenta con otro email") {
       alert(`El usuario con el mail ${email} ya existe, intenta con otro. `);

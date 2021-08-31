@@ -29,13 +29,16 @@ const EditarMazo = (props) => {
       datas.descripcion = editado.descripcion;
     }
 
-    const data = await fetch(`http://localhost:4000/api/mazo/${mazo.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(datas),
-    });
+    const data = await fetch(
+      `https://mazos-api.herokuapp.com/api/mazo/${mazo.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datas),
+      }
+    );
     await data.json();
     alert("Mazo actualizado exitosamente.");
     setRedirect(true);

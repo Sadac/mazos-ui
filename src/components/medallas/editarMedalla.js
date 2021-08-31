@@ -35,7 +35,7 @@ const EditarMedalla = (props) => {
     }
 
     const data = await fetch(
-      `http://localhost:4000/api/medalla/${medalla.id}`,
+      `https://mazos-api.herokuapp.com/api/medalla/${medalla.id}`,
       {
         method: "PATCH",
         headers: {

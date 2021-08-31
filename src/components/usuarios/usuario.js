@@ -15,7 +15,7 @@ const Usuario = ({ user, setRefresh }) => {
   };
 
   const deleteUsuario = async (id) => {
-    await fetch(`http://localhost:4000/api/usuario/delete/${id}`, {
+    await fetch(`https://mazos-api.herokuapp.com/api/usuario/delete/${id}`, {
       method: "DELETE",
     });
     setRefresh(true);
@@ -27,9 +27,12 @@ const Usuario = ({ user, setRefresh }) => {
 
   const handleDetalle = async (id) => {
     setDetalle(true);
-    const response = await fetch(`http://localhost:4000/api/usuario/${id}`, {
-      method: "GET",
-    });
+    const response = await fetch(
+      `https://mazos-api.herokuapp.com/api/usuario/${id}`,
+      {
+        method: "GET",
+      }
+    );
     const respuesta = await response.json();
     setUserDetail(respuesta[0]);
   };
